@@ -1,0 +1,11 @@
+.DS_Store
+build/
+npm-debug.log
+tsconfig.json
+.idea/
+node_modules/
+package-lock.json
+doc/
+mock2easy/
+.vscode/
+
