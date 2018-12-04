@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --config webpack.config.js"
+    "start": "webpack --config webpack.config.dev.js --color",
+    "build": "webpack --config webpack.config.production.js --color"
   },
   "repository": {
     "type": "git",
@@ -18,8 +19,14 @@
   },
   "homepage": "https://github.com/lei14370/reactDemos#readme",
   "devDependencies": {
-    "webpack": "^4.16.5",
-    "webpack-cli": "^3.1.0",
-    "webpack-command": "^0.4.1"
+    "@babel/core": "^7.0.0",
+    "autoprefixer": "^9.3.1",
+    "babel-loader": "^8.0.4",
+    "happypack": "^5.0.0",
+    "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.4.5",
+    "webpack": "^4.26.1",
+    "webpack-cli": "^3.1.2",
+    "webpack-merge": "^4.1.4"
   }
 }
