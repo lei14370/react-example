@@ -71,7 +71,7 @@ class Page extends React.Component {
                         background: '#fff', padding: 24, margin: 0, minHeight: 280,
                     }}
                     >
-                        Content
+                        {this.props.children}
                     </Content>
                 </Layout>
             </Layout>
