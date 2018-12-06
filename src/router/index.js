@@ -1,8 +1,15 @@
 import React from 'react';
 
-import {HashRouter as Router, Route, Switch} from 'react-router-dom';
+import {Router, Route, Switch} from 'react-router-dom';
 import {Container} from '@/components';
-import Home from '@/pages/home'
+import menu from './menu';
+import Home from '@/pages/home';
+import Page1 from '@/pages/page';
+import {createBrowserHistory} from 'history';
+const history=createBrowserHistory();
+history.listen((local)=>{
+    console.log(local)
+})
 class Component extends React.Component {
     constructor(props) {
         super(props);
@@ -11,11 +18,16 @@ class Component extends React.Component {
     componentWillMount() {}
     render() {
         return (
-            <Router>
+            <Router history={history}>
                 <Switch>
-                    <Route exact path="/" component={(match,history)=>{
-                        return <Container>
+                    <Route exact path="/" component={props=>{
+                        return <Container {...props} menu={menu}>
                             <Home/>
+                        </Container>
+                    }}/>
+                    <Route exact path="/basicdata" component={props=>{
+                        return <Container {...props} menu={menu}>
+                            <Page1/>
                         </Container>
                     }}/>
                 </Switch>
