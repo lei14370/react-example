@@ -1,11 +1,15 @@
-import '@babel/polyfill';
-import React from 'react';
-import ReactDom from 'react-dom';
+import React from "react";
+import ReactDOM from "react-dom";
+import { Button, DatePicker, version } from "antd";
+import "antd/dist/antd.css";
 
-import Router from './router/index';
-import './css/base.scss';
-import '~/antd/dist/antd.css';
-import './css/app.scss';
-
-ReactDom.render(
-    <Router/>, document.getElementById('app'));
+ReactDOM.render(
+  <div className="App">
+    <h1>antd version: {version}</h1>
+    <DatePicker />
+    <Button type="primary" style={{ marginLeft: 8 }}>
+      Primary Button
+    </Button>
+  </div>,
+  document.getElementById("root")
+);

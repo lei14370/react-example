@@ -1,14 +1,6 @@
 const  path=require('path');
 const  webpack=require('webpack');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");//该插件的主要是为了抽离css样式,防止将样式打包在js中引起页面样式加载错乱的现象;
-const  autoprefixer=require('autoprefixer')({
-    browsers: [
-        '>1%',
-        'last 4 versions',
-        'Firefox ESR',
-        'not ie < 9', // React doesn't support IE8 anyway
-    ]
-});//自动管理游览器前缀
 function resolve(dir) {
     return path.join(process.cwd(),dir);
 }
@@ -75,7 +67,7 @@ module.exports = {
     module: {
         rules: [{
             test: /\?bundle\.js[x]?$/,
-            exclude: [/node_modules/,resolve('src/ueditor')],
+            exclude: [/node_modules/],
             use: [{
                 loader: 'bundle-loader',
                 options: {
@@ -85,7 +77,7 @@ module.exports = {
             }]
         }, {
             test: /\.js[x]?$/,
-            exclude: [/node_modules/,resolve('src/ueditor')],
+            exclude: [/node_modules/],
             use: [{
                 loader: 'happypack/loader?id=js'
             }]
@@ -97,9 +89,6 @@ module.exports = {
                 loader: 'css-loader'
                 }, {
                     loader: 'postcss-loader',
-                    options: {
-                        plugins: () => [autoprefixer]
-                    }
                 }, {
                     loader: 'sass-loader'
                 }]
@@ -107,13 +96,10 @@ module.exports = {
             test: /\.less$/,
             use:[
                 MiniCssExtractPlugin.loader,
-                {
+                {  
                     loader: 'css-loader'
                 }, {
                     loader: 'postcss-loader',
-                    options: {
-                        plugins: () => [autoprefixer]
-                    }
                 }, {
                     loader: 'less-loader'
                 }]
@@ -125,9 +111,6 @@ module.exports = {
                     loader: 'css-loader'
                 }, {
                     loader: 'postcss-loader',
-                    options: {
-                        plugins: () => [autoprefixer]
-                    }
                 }]
         }, {
             test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,

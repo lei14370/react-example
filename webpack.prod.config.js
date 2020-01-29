@@ -6,11 +6,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CompressionWebpackPlugin = require('compression-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const OptimizeCSSAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin');
-var UglifyJsPlugin=require('uglifyjs-webpack-plugin');
-
-// const BaiduTongjiPlugin = require('@zd/webpack-plugin/baidutongji');
-// const SEOPlugin = require('@zd/webpack-plugin/seo');
-// const TingYunPlugin = require('@zd/webpack-plugin/tingyun');
+const UglifyJsPlugin=require('uglifyjs-webpack-plugin');
 
 process.env.NODE_ENV = "production";
 
@@ -45,7 +41,6 @@ module.exports = merge(baseConfig, {
 			"process.env": {
 				NODE_ENV: '"production"'
 			},
-      // "__CDN_URL__": `"${Constants.CDN_URL}"`
 		}),
 		new CleanWebpackPlugin(['build']),
 		new webpack.optimize.OccurrenceOrderPlugin(),
@@ -56,18 +51,6 @@ module.exports = merge(baseConfig, {
 				}
 			}
 		}),
-		// new SEOPlugin({
-		// 	title: '页面加载中',
-		// 	description: '',
-		// 	keywords: ''
-		// }),
-		// new BaiduTongjiPlugin({
-		// 	id: '79b69c6ef50016974011fa26d499993a'
-		// }),
-		// new TingYunPlugin({
-		// 	cdn: `${Constants.CDN_URL}/tingyun`,
-		// 	name: "test"
-		// }),
 		new HtmlWebpackPlugin({
 			inject: true,
 			template: path.join(__dirname, 'src/index.html'),
@@ -86,7 +69,6 @@ module.exports = merge(baseConfig, {
 				minifyURLs: true
 			},
 			chunksSortMode: 'dependency',
-            // chunks: [ueditor_all, ueditor_config]
 		}),
 		new CompressionWebpackPlugin({
             filename: '[path].gz[query]',
