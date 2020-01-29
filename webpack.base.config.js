@@ -66,6 +66,13 @@ module.exports = {
     },
     module: {
         rules: [{
+            enforce: 'pre',           // 在webpack编译之前进行检测
+            test: /.(js|jsx)$/,
+            loader: 'eslint-loader',
+            exclude: [                // 除去node_modules
+              path.resolve(__dirname, '../node_modules')
+            ]
+          },{
             test: /\?bundle\.js[x]?$/,
             exclude: [/node_modules/],
             use: [{

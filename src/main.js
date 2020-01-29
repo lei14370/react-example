@@ -1,15 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Button, DatePicker, version } from "antd";
+import {HashRouter, Route, Switch} from 'react-router-dom';
 import "antd/dist/antd.css";
-
+import Home from '@/page/home';
+import Detail from '@/page/detail';
 ReactDOM.render(
-  <div className="App">
-    <h1>antd version: {version}</h1>
-    <DatePicker />
-    <Button type="primary" style={{ marginLeft: 8 }}>
-      Primary Button
-    </Button>
-  </div>,
+  <HashRouter>
+    <Switch>
+        <Route exact path="/" component={Home}/>
+        <Route exact path="/detail" component={Detail}/>
+    </Switch>
+  </HashRouter>,
   document.getElementById("root")
 );
