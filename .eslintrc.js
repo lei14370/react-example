@@ -3,6 +3,7 @@ module.exports = {
     'browser': true,
     'es6': true,
   },
+  "parser": "babel-eslint",
   'extends': [
     'plugin:react/recommended',
     'google',
@@ -22,5 +23,7 @@ module.exports = {
     'react',
   ],
   'rules': {
+    "require-jsdoc" : 0,
+    "no-invalid-this": 0,
   },
 };

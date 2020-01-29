@@ -1,15 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
-import {HashRouter, Route, Switch} from 'react-router-dom';
+import Router from '@/router';
 import 'antd/dist/antd.css';
-import Home from '@/page/home';
-import Login from '@/page/login';
+global.React=React;
+global.PropTypes=PropTypes;
+
 ReactDOM.render(
-    <HashRouter>
-      <Switch>
-        <Route exact path="/" component={Home}/>
-        <Route exact path="/login" component={Login}/>
-      </Switch>
-    </HashRouter>,
+    <Router/>,
     document.getElementById('root'),
 );
