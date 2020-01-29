@@ -6,7 +6,7 @@
   "scripts": {
     "start": "webpack-dev-server --colors --config webpack.dev.config.js --mode development",
     "build": "webpack --config webpack.prod.config.js --colors --mode production",
-    "lint": "eslint --ext .js --ext .jsx client/"
+    "lint": "eslint --ext .js --ext .jsx src/"
   },
   "repository": {
     "type": "git",
