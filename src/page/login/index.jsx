@@ -10,7 +10,8 @@ import {Form, Icon, Input, Button, Checkbox} from 'antd';
  */
 class NormalLoginForm extends React.Component {
   static propTypes = {
-    form: PropTypes.object.isReq,
+    form: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired,
   }
 
   handleSubmit = (e) => {
@@ -24,7 +25,8 @@ class NormalLoginForm extends React.Component {
   };
 
   render() {
-    const {getFieldDecorator} = this.props.form;
+    const {history, form}=this.props;
+    const {getFieldDecorator} = form;
     return (
       <div id="components-form-demo-normal-login">
         <Form onSubmit={this.handleSubmit} className="login-form">
@@ -68,7 +70,9 @@ class NormalLoginForm extends React.Component {
             >
             Log in
             </Button>
-          Or <a href="">register now!</a>
+          Or <a onClick={
+              ()=>history.replace('/register')
+            }>register now!</a>
           </Form.Item>
         </Form>
       </div>
