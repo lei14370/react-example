@@ -1,7 +1,8 @@
 import './style';
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Form, Icon, Input, Button, Checkbox} from 'antd';
+import axios from 'axios';
+import {Form, Icon, Input, Button, Checkbox, message} from 'antd';
 
 /**
  * 描述
@@ -15,11 +16,22 @@ class NormalLoginForm extends React.Component {
   }
 
   handleSubmit = (e) => {
-    const {form}=this.props;
+    const {form, history}=this.props;
     e.preventDefault();
     form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
+        axios({
+          method: 'post',
+          url: '/user/login',
+          data: values,
+        }).then(function(response) {
+          console.log(response);
+          const {data}=response;
+          if (data.success) {
+            message.success(data.message);
+            history.replace('/');
+          }
+        });
       }
     });
   };
