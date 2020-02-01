@@ -1,61 +1,23 @@
 import './style';
 import React from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 import {
   Form,
   Input,
   Tooltip,
   Icon,
-  Cascader,
   Select,
-  Row,
-  Col,
   Checkbox,
   Button,
-  AutoComplete,
+  message,
 } from 'antd';
 
 const {Option} = Select;
-const AutoCompleteOption = AutoComplete.Option;
-
-const residences = [
-  {
-    value: 'zhejiang',
-    label: 'Zhejiang',
-    children: [
-      {
-        value: 'hangzhou',
-        label: 'Hangzhou',
-        children: [
-          {
-            value: 'xihu',
-            label: 'West Lake',
-          },
-        ],
-      },
-    ],
-  },
-  {
-    value: 'jiangsu',
-    label: 'Jiangsu',
-    children: [
-      {
-        value: 'nanjing',
-        label: 'Nanjing',
-        children: [
-          {
-            value: 'zhonghuamen',
-            label: 'Zhong Hua Men',
-          },
-        ],
-      },
-    ],
-  },
-];
-
 class RegistrationForm extends React.Component {
   static propTypes = {
     form: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired,
   }
   state = {
     confirmDirty: false,
@@ -66,6 +28,20 @@ class RegistrationForm extends React.Component {
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
+        axios({
+          method: 'post',
+          url: '/user/register',
+          data: values,
+        }).then(function(response) {
+          console.log(response);
+          const {data}=response;
+          if (data.success) {
+            message.success(data.message);
+            this.props.history.replace('/login');
+          } else {
+            message.error(data.message);
+          }
+        });
       }
     });
   };
@@ -92,20 +68,8 @@ class RegistrationForm extends React.Component {
     callback();
   };
 
-  handleWebsiteChange = (value) => {
-    let autoCompleteResult;
-    if (!value) {
-      autoCompleteResult = [];
-    } else {
-      autoCompleteResult = ['.com', '.org', '.net']
-          .map((domain) => `${value}${domain}`);
-    }
-    this.setState({autoCompleteResult});
-  };
-
   render() {
     const {getFieldDecorator} = this.props.form;
-    const {autoCompleteResult} = this.state;
 
     const formItemLayout = {
       labelCol: {
@@ -137,10 +101,6 @@ class RegistrationForm extends React.Component {
           <Option value="87">+87</Option>
         </Select>,
     );
-
-    const websiteOptions = autoCompleteResult.map((website) => (
-      <AutoCompleteOption key={website}>{website}</AutoCompleteOption>
-    ));
 
     return (
       <div id='components-form-demo-normal-register'>
@@ -203,18 +163,6 @@ class RegistrationForm extends React.Component {
               }],
             })(<Input />)}
           </Form.Item>
-          <Form.Item label="Habitual Residence">
-            {getFieldDecorator('residence', {
-              initialValue: ['zhejiang', 'hangzhou', 'xihu'],
-              rules: [
-                {
-                  type: 'array',
-                  required: true,
-                  message: 'Please select your habitual residence!',
-                },
-              ],
-            })(<Cascader options={residences} />)}
-          </Form.Item>
           <Form.Item label="Phone Number">
             {getFieldDecorator('phone', {
               rules: [{
@@ -223,20 +171,7 @@ class RegistrationForm extends React.Component {
               }],
             })(<Input addonBefore={prefixSelector} style={{width: '100%'}} />)}
           </Form.Item>
-          <Form.Item label="Website">
-            {getFieldDecorator('website', {
-              rules: [{required: true, message: 'Please input website!'}],
-            })(
-                <AutoComplete
-                  dataSource={websiteOptions}
-                  onChange={this.handleWebsiteChange}
-                  placeholder="website"
-                >
-                  <Input />
-                </AutoComplete>,
-            )}
-          </Form.Item>
-          <Form.Item
+          {/* <Form.Item
             label="Captcha"
             extra="We must make sure that your are a human."
           >
@@ -253,7 +188,7 @@ class RegistrationForm extends React.Component {
                 <Button>Get captcha</Button>
               </Col>
             </Row>
-          </Form.Item>
+          </Form.Item> */}
           <Form.Item {...tailFormItemLayout}>
             {getFieldDecorator('agreement', {
               valuePropName: 'checked',
